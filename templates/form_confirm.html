@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Confirmation</title>
+    <!-- Include your CSS styles if needed -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container w-50 text-center p-3 my-5 bg-info">
+        <h2>Order Confirmed</h2>
+    </div>
+    <div id="home_link">
+        <p><a href="{% url 'Restapp:home_view' %}">Return to Home Page</a></p>
+    </div>
+  
+
+</body>
+</html>
+{% endblock %}
+
+    
+
+
+

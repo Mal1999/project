@@ -1,0 +1,69 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Protest+Riot&display=swap" rel="stylesheet">
+
+    <!-- Include your JavaScript file -->
+    <script src="{% static 'js/script.js' %}"></script>
+  </head>
+  <body >
+    
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a href="{% url 'Restapp:home_view' %}"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'Restapp:home_view' %}">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Depts
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/computer-science" target="_blank">Computer Science</a></li>
+                <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Commerce" target="_blank">Commerce</a></li>
+                <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Humanities" target="_blank">Humanities</a></li>
+                <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/agriculture" target="_blank">Agriculture</a></li>
+                <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Computationalbiology" target="_blank">Computational Biology</a></li>
+              </ul>
+            </li>
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Restapp:login_view' %}">Login</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Restapp:register' %}" >Register</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-light disabled">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Restapp:logout_view' %}">Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+          </div>
+      </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <footer class="fixed-bottom bg-dark text-light text-center py-2">
+      © School Store. All rights reserved.
+  </footer>
+  </body>
+
+</html>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 text-center p-3 my-5 bg-info">
+    <h2>Welcome to the New Page {{user.username}} !</h2>
+    <p>This is your personalized new page.</p>
+    <a class="btn btn-primary" href="{% url 'Restapp:form_page' %}">Open Form</a>
+</div>
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form - School Store</title>
+</head>
+<body>
+    <div class="container w-50 text-center p-3 my-5 bg-secondary">
+        <form action="{% url 'Restapp:form_confirm' %}" method="post" id="formPageForm" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dob">DOB:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label>Gender:</label>
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+            <label for="email">Mail ID:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+
+            <label for="department">Department:</label>
+            <select id="department" name="department" onchange="populateCourses()">
+                <option value="computer-science">Computer Science</option>
+                <option value="commerce">Commerce</option>
+                <option value="humanities">Humanities</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="computational-biology">Computational Biology</option>
+                
+            </select>
+
+            <label for="course">Courses:</label>
+            <select id="course" name="course" required>
+               
+            
+            <script>
+                function populateCourses() {
+                    var department = document.getElementById("department").value;
+                    var courseSelect = document.getElementById("course");
+            
+                    // Clear previous options
+                    courseSelect.innerHTML = "";
+            
+                    // Add new options based on the selected department
+                    if (department === "computer-science") {
+                        var computerscienceCourses = [" Bsc chemistry", "Biotechnology", "Bsc electronics", "MBBS", "Forensic science"];
+                        addOptions(computerscienceCourses, courseSelect);
+                    } else if (department === "commerce") {
+                        var commerceCourses = ["CA", "CMA", "BBA", "CCA", "B.com"];
+                        addOptions(commerceCourses, courseSelect);
+                    } else if (department === "humanities") {
+                        var humanitiesCourses = ["Philosophy", "Literature", "Archeology", "Animation", "Anthropology"];
+                        addOptions(humanitiesCourses, courseSelect);
+                    } else if (department === "agriculture") {
+                        var agriculture = ["Horticulturist", "Agriculture technician", "Entomology", "Agronomy", "Bsc Fisheries"];
+                        addOptions(agriculture, courseSelect);
+                    } else if (department === "computational-biology") {
+                        var computationalBiologyCourses = ["System Modelling", "Computional genomics", "Bioinformatics", "Genomic data science", "Intro to systems biology"];
+                        addOptions(computationalBiologyCourses, courseSelect);
+                    }
+                }
+            
+                function addOptions(courses, courseSelect) {
+                    for (var i = 0; i < courses.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = courses[i];
+                        courseSelect.add(option);
+                    }
+                }
+            
+                function validateForm() {
+                    // Basic form validation, add more checks as needed
+                    var name = document.getElementById("name").value;
+                    var dob = document.getElementById("dob").value;
+                    var age = document.getElementById("age").value;
+                    var gender = document.querySelector('input[name="gender"]:checked');
+                    var phone = document.getElementById("phone").value;
+                    var email = document.getElementById("email").value;
+                    var address = document.getElementById("address").value;
+                    var department = document.getElementById("department").value;
+                    var course = document.getElementById("course").value;
+                    var purpose = document.getElementById("purpose").value;
+            
+                    if (!name || !dob || !age || !gender || !phone || !email || !address || !department || !course || !purpose) {
+                        alert("Please fill in all required fields.");
+                        return false;
+                    }
+            
+                    return true;
+                }
+            </script>
+            </select>
+            <br>
+            
+
+            <label for="purpose">Purpose:</label>
+            <select id="purpose" name="purpose" required>
+                <option value="enquiry">For Enquiry</option>
+                <option value="place-order">Place Order</option>
+                <option value="return">Return</option>
+                <option value="refund">Refund</option>
+                <option value="exchange">Exchange</option>
+                <!-- Add more purposes as needed -->
+            </select>
+
+            <label>Materials Provide:</label>
+            <label><input type="checkbox" name="materials" value="notebook"> Notebook</label>
+            <label><input type="checkbox" name="materials" value="pen"> Pen</label>
+            <label><input type="checkbox" name="materials" value="exam-papers"> Exam Papers</label>
+            <label><input type="checkbox" name="materials" value="bag"> Bag </label>
+            <label><input type="checkbox"  name="materials" value="guides">Guides</label>
+            <!-- Add more materials as needed -->
+            
+            <button class="btn btn-primary mb-2" type="submit">Submit</button>
+            
+        </form>
+        <p id="confirmationMessage"></p>
+        <a href="/">Return to Home Page</a>
+    </div>
+
+    <!-- <script>
+        function populateCourses() {
+            var department = document.getElementById("department").value;
+            var courseSelect = document.getElementById("course");
+
+            // Clear previous options
+            courseSelect.innerHTML = "";
+
+            // Add new options based on the selected department
+            if (department === "computer-science") {
+                var computerScienceCourses = ["Computer Science Course 1", "Computer Science Course 2"];
+                for (var i = 0; i < computerScienceCourses.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = computerScienceCourses[i];
+                    courseSelect.add(option);
+                }
+            } else if (department === "commerce") {
+                var commerceCourses = ["Commerce Course 1", "Commerce Course 2"];
+                for (var j = 0; j < commerceCourses.length; j++) {
+                    var optionCommerce = document.createElement("option");
+                    optionCommerce.text = commerceCourses[j];
+                    courseSelect.add(optionCommerce);
+                }
+                // Add more conditions for other departments
+            }
+        }
+
+        function validateForm() {
+            // Basic form validation, add more checks as needed
+            var name = document.getElementById("name").value;
+            var dob = document.getElementById("dob").value;
+            var age = document.getElementById("age").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var address = document.getElementById("address").value;
+            var department = document.getElementById("department").value;
+            var course = document.getElementById("course").value;
+            var purpose = document.getElementById("purpose").value;
+
+            if (!name || !dob || !age || !gender || !phone || !email || !address || !department || !course || !purpose) {
+                alert("Please fill in all required fields.");
+                return false;
+            }
+
+            // Additional custom validation can be added here
+
+            return true;
+        }
+    </script> -->
+
+</body>
+</html>
+{% endblock %}

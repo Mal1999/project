@@ -1,0 +1,40 @@
+<!-- templates/your_app/single_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dependent Dropdown</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.department }}
+        {{ form.name }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            $('#id_department').change(function(){
+                var departmentId = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_courses/',
+                    data: {'department_id': departmentId},
+                    success: function(data){
+                        var options = '<option value="">---------</option>';
+                        for(var i=0; i<data.length; i++){
+                            options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                        }
+                        $('#id_name').html(options);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
